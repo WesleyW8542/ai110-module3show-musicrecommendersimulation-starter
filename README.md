@@ -2,20 +2,28 @@
 
 ## Project Summary
 
-In this project you will build and explain a small music recommender system.
-
-Your goal is to:
-
-- Represent songs and a user "taste profile" as data
-- Design a scoring rule that turns that data into recommendations
-- Evaluate what your system gets right and wrong
-- Reflect on how this mirrors real world AI recommenders
-
-Replace this paragraph with your own summary of what your version does.
+This version of the music recommender simulates a basic content-based recommendation system. It represents songs with attributes like genre, mood, energy, tempo, valence, danceability, and acousticness, and matches them to user profiles defined by favorite genre, mood, target energy, and acoustic preference. The system computes scores by comparing these attributes and recommends the top-matching songs, prioritizing simplicity and transparency to illustrate how real-world recommenders work.
 
 ---
 
 ## How The System Works
+
+Real-world recommendation systems, like those used by Spotify or Netflix, analyze vast amounts of user data—such as listening history, ratings, and interactions—to predict preferences using techniques like collaborative filtering (finding similar users) and content-based filtering (matching item features). They often incorporate machine learning models to balance personalization with diversity. My version prioritizes simplicity and interpretability, focusing on direct attribute matching between user preferences and song characteristics to demonstrate core concepts without overwhelming complexity.
+
+**Song features used in the simulation:**
+- genre
+- mood
+- energy
+- tempo_bpm
+- valence
+- danceability
+- acousticness
+
+**UserProfile information stored:**
+- favorite_genre
+- favorite_mood
+- target_energy
+- likes_acoustic
 
 Explain your design in plain language.
 

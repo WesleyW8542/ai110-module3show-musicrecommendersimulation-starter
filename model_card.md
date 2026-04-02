@@ -5,6 +5,8 @@
 Give your model a short, descriptive name.  
 Example: **VibeFinder 1.0**  
 
+**TuneMatch Recommender v1.0**
+
 ---
 
 ## 2. Intended Use  
@@ -16,6 +18,8 @@ Prompts:
 - What kind of recommendations does it generate  
 - What assumptions does it make about the user  
 - Is this for real users or classroom exploration  
+
+This recommender generates personalized music recommendations based on user preferences for genre, mood, energy level, and acoustic preference. It is designed for music discovery and exploration, assuming users have clear preferences for these musical attributes. This is primarily for classroom exploration and learning about recommendation systems, not for production use with real users.  
 
 ---
 
@@ -32,6 +36,16 @@ Prompts:
 
 Avoid code here. Pretend you are explaining the idea to a friend who does not program.
 
+The recommender scores songs by comparing them to a user's profile preferences. It looks at the song's genre, mood, energy level, and acoustic qualities. For each song, it calculates a score where higher scores mean better matches to the user's tastes. Songs are then ranked by their scores and the top recommendations are returned.
+
+The scoring considers:
+- Genre match: songs in the user's favorite genre get a big boost
+- Mood match: songs matching the preferred mood get extra points  
+- Energy closeness: songs with energy levels near the user's target get higher scores
+- Acoustic preference: if the user likes acoustic music, songs with high acousticness get a bonus
+
+I implemented a weighted scoring system that combines these factors, with genre and mood being the most important factors, followed by energy match, and acoustic preference as a smaller bonus.
+
 ---
 
 ## 4. Data  
@@ -45,6 +59,7 @@ Prompts:
 - Did you add or remove data  
 - Are there parts of musical taste missing in the dataset  
 
+
 ---
 
 ## 5. Strengths  
@@ -56,6 +71,7 @@ Prompts:
 - User types for which it gives reasonable results  
 - Any patterns you think your scoring captures correctly  
 - Cases where the recommendations matched your intuition  
+
 
 ---
 
@@ -69,6 +85,7 @@ Prompts:
 - Genres or moods that are underrepresented  
 - Cases where the system overfits to one preference  
 - Ways the scoring might unintentionally favor some users  
+
 
 ---
 
@@ -85,6 +102,7 @@ Prompts:
 
 No need for numeric metrics unless you created some.
 
+
 ---
 
 ## 8. Future Work  
@@ -98,6 +116,7 @@ Prompts:
 - Improving diversity among the top results  
 - Handling more complex user tastes  
 
+
 ---
 
 ## 9. Personal Reflection  
@@ -108,4 +127,5 @@ Prompts:
 
 - What you learned about recommender systems  
 - Something unexpected or interesting you discovered  
-- How this changed the way you think about music recommendation apps  
+- How this changed the way you think about music recommendation apps
+
