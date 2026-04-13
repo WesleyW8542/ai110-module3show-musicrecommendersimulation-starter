@@ -4,6 +4,8 @@
 
 This version of the music recommender simulates a basic content-based recommendation system. It represents songs with attributes like genre, mood, energy, tempo, valence, danceability, and acousticness, and matches them to user profiles defined by favorite genre, mood, target energy, and acoustic preference. The system computes scores by comparing these attributes and recommends the top-matching songs, prioritizing simplicity and transparency to illustrate how real-world recommenders work.
 
+![Recommendation](Recommendations.png)
+
 ---
 
 ## How The System Works
@@ -36,6 +38,67 @@ Some prompts to answer:
 - How do you choose which songs to recommend
 
 You can include a simple diagram or bullet list if helpful.
+
+### Taste Profile and Recommendation Recipe
+
+**Proposed user taste profile (dictionary):**
+
+```python
+user_profile = {
+    "favorite_genre": "rock",
+    "favorite_mood": "intense",
+    "target_energy": 0.90,
+    "likes_acoustic": False,
+}
+```
+
+This profile is designed to differentiate between an "intense rock" listener and a "chill lofi" listener by combining:
+- a strong genre preference (`favorite_genre`) to favor rock over lofi,
+- a mood preference (`favorite_mood`) to prefer intense tracks,
+- an energy target (`target_energy`) to emphasize high-energy songs,
+- and an acoustic preference (`likes_acoustic`) to avoid acoustic-heavy tracks when set to `False`.
+
+The profile is specific enough to separate the two styles, but it could be too narrow if the system only relies on exact genre and mood matches. For example, a chill song with an intense feel or a rock song with a mellow mood may be missed unless energy and acousticness also contribute meaningfully to the score.
+
+**Finalized algorithm recipe:**
+
+- +2.0 points for a genre match.
+- +1.0 point for a mood match.
+- Similarity points for how close the song's energy is to `target_energy`.
+- A small bonus if `likes_acoustic` matches the song's acousticness level.
+
+A balanced scoring formula could look like:
+
+```python
+score = 0.0
+if song.genre == user_profile["favorite_genre"]:
+    score += 2.0
+if song.mood == user_profile["favorite_mood"]:
+    score += 1.0
+score += max(0.0, 2.0 - abs(song.energy - user_profile["target_energy"]) * 2)
+if user_profile["likes_acoustic"] == (song.acousticness > 0.5):
+    score += 0.5
+```
+
+This recipe keeps genre as the strongest signal, lets mood matter too, and uses energy closeness to refine recommendations.
+
+**Data flow map:**
+
+```mermaid
+flowchart TD
+  A[Input: User Prefs] --> B[Process: Load songs from CSV]
+  B --> C[Process: Loop through each song]
+  C --> D[Compare song attributes to profile]
+  D --> E[Compute score for each song]
+  E --> F[Sort songs by score]
+  F --> G[Output: Top K Recommendations]
+```
+
+This diagram represents one song moving from the CSV into the scoring loop and then into the final ranked list.
+
+**Potential bias note:**
+
+This system may over-prioritize genre and energy, which could ignore great songs that match the user's mood but differ in genre. It also treats song features as independent, so it may miss nuance in combinations like a mellow rock track or a high-energy lofi song.
 
 ---
 
