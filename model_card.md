@@ -111,6 +111,7 @@ Prompts:
 - Improving diversity among the top results  
 - Handling more complex user tastes  
 
+The next improvements should focus on broader song coverage and more nuanced personalization. Adding tempo, valence, and user listening history would help the system understand not only energy and genre but also how songs feel emotionally. A better explanation layer could show users why each recommendation was chosen, and a diversity filter could prevent too many songs from the same genre or mood dominating the top results. Finally, supporting more complex profiles like “high-energy but mellow” would require balancing conflicting preferences rather than treating each feature equally.
 
 ---
 
@@ -124,3 +125,4 @@ Prompts:
 - Something unexpected or interesting you discovered  
 - How this changed the way you think about music recommendation apps
 
+Working through this project showed me that even a small recommender can behave in surprising ways depending on how features are weighted. I learned that genre and energy are easy-to-understand signals, but they can hide the real tradeoffs between mood and user intent. It was interesting to see that a high-energy profile could still end up recommending songs that felt wrong emotionally if the catalog did not include enough mood-matched options. This made me appreciate why real music apps need many data sources and diversity controls rather than relying on just a handful of song attributes.
