@@ -59,12 +59,15 @@ Prompts:
 - Did you add or remove data  
 - Are there parts of musical taste missing in the dataset  
 
+The model uses a small catalog of 17 songs loaded from `data/songs.csv`. The catalog includes a mix of genres such as pop, lofi, rock, ambient, jazz, synthwave, indie pop, country, hip-hop, classical, electronic, reggae, blues, and folk. The moods represented include chill, happy, intense, relaxed, moody, focused, energetic, calm, upbeat, sad, and melancholic. 
+
+This dataset is intentionally limited for classroom exploration, so it does not fully cover the diversity of real-world music tastes. For example, there are only one classical track and one blues track, while lofi and pop are better represented. The model also lacks information about lyrics, artist similarity, user listening history, and personal behavior, so it relies solely on song metadata and preferences.
 
 ---
 
 ## 5. Strengths  
 
-Where does your system seem to work well  
+Where your system seems to work well  
 
 Prompts:  
 
@@ -72,6 +75,9 @@ Prompts:
 - Any patterns you think your scoring captures correctly  
 - Cases where the recommendations matched your intuition  
 
+The system works well for profiles where the user has a clearly defined target energy and prefers a distinct genre. It reliably surfaces songs that are close to the requested energy level and rewards exact genre and mood matches. For example, Chill Lofi users consistently receive calm, low-energy lofi tracks, while High-Energy Pop users get upbeat pop songs with energy near their target.
+
+It is also useful as an educational tool because the scoring logic is transparent and easy to explain. The model clearly shows how genre, mood, energy, and acoustic preference interact, which makes it easier to debug and tune weight changes during experiments.
 
 ---
 
@@ -79,13 +85,7 @@ Prompts:
 
 Where the system struggles or behaves unfairly. 
 
-Prompts:  
-
-- Features it does not consider  
-- Genres or moods that are underrepresented  
-- Cases where the system overfits to one preference  
-- Ways the scoring might unintentionally favor some users  
-
+This recommender can produce filter bubbles because it over-prioritizes the most common catalog patterns. For example, lofi appears three times and chill mood appears four times in the dataset, so chill/lofi listeners receive stronger matches than rarer tastes like classical, blues, or folk. The energy gap calculation is absolute, so users with high energy preferences can still be served songs that match energy but not mood, which is especially visible with the high-energy/sad adversarial profile. The genre boost is now reduced, so the model is more sensitive to energy and may favor songs that feel right energetically even if the genre is less preferred. The small binary acoustic bonus also fails to capture subtle acoustic nuance, meaning the system can miss richer acoustic recommendations.
 
 ---
 
@@ -93,12 +93,7 @@ Prompts:
 
 How you checked whether the recommender behaved as expected. 
 
-Prompts:  
-
-- Which user profiles you tested  
-- What you looked for in the recommendations  
-- What surprised you  
-- Any simple tests or comparisons you ran  
+I tested four profiles: High-Energy Pop, Chill Lofi, Deep Intense Rock, and an adversarial High-Energy Sad profile. I compared the top 5 recommendations for each profile before and after doubling energy importance and halving genre importance. The rankings changed noticeably, with energy-aligned tracks moving higher even when genre or mood matches were weaker. That suggests the change made the system more sensitive to energy, which is useful for energy-driven users, but it did not necessarily make recommendations more accurate for genre-specific or mood-specific listeners.
 
 No need for numeric metrics unless you created some.
 

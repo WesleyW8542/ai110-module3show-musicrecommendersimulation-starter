@@ -6,6 +6,19 @@ This version of the music recommender simulates a basic content-based recommenda
 
 ![Recommendation](Recommendations.png)
 
+## Terminal Output Screenshots
+
+Below are the terminal screenshot results for the different user profiles:
+
+- **High-Energy Pop**
+  ![High-Energy Pop](High-energy Pop.png)
+- **Chill Lofi**
+  ![Chill Lofi](Chill Lofi.png)
+- **Deep Intense Rock**
+  ![Deep Intense Rock](Deep Intense Rock.png)
+- **Adversarial Conflict**
+  ![Adversarial Conflict](Adversial Conflict.png)
+
 ---
 
 ## How The System Works
